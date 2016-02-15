@@ -58,24 +58,24 @@ Returns true if the ACf plugin is installed and active. False if not.
 - $attachment_id: The id of the attachment.
 
 
-### \Leean\Acf::function get_taxonomy_field( $field, $taxonomy_term 
+### \Leean\Acf::function get_taxonomy_field( $field, $taxonomy_term )
 
 - $field: The ACF field key or name. Note that ACF recommend always using the key.
 - $taxonomy_term: The id of the taxonomy term or the WP_Term object.
 
 
-### \Leean\Acf::get_user_field( $field, $user_id ) {
+### \Leean\Acf::get_user_field( $field, $user_id )
 
 - $field: The ACF field key or name. Note that ACF recommend always using the key.
 - $comment: The id of the user.
 
 
-### \Leean\Acf::get_widget_field( $field, $widget_id ) {
+### \Leean\Acf::get_widget_field( $field, $widget_id )
 
 - $field: The ACF field key or name. Note that ACF recommend always using the key.
 - $widget_id: The id of the widget.
 
 
-### \Leean\Acf::get_option_field( $field ) {
+### \Leean\Acf::get_option_field( $field )
 
 - $field: The ACF field key or name. Note that ACF recommend always using the key.
