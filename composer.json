@@ -1,8 +1,8 @@
 {
-  "name": "moxie-leean/acf",
+  "name": "moxie-leean/wp-acf",
   "description": "Helper functions for working with Advanced Custom Fields",
   "keywords": ["wordpress", "acf"],
-  "homepage": "https://github.com/moxie-leean/acf",
+  "homepage": "https://github.com/moxie-leean/wp-acf",
   "type": "library",
   "license": "MIT",
   "authors": [
@@ -33,7 +33,7 @@
     "post-install-cmd": [ "@installSnifferj" ],
     "post-update-cmd": [ "@installSniffer" ],
     "ci": [
-      "phpcs src/*.php"
+      "phpcs src/*.php src/**/**/*.php"
     ]
   }
 }
