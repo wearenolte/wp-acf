@@ -18,34 +18,47 @@ class Image
 			return $field['value'];
 		}
 
-		return self::transform_image_fields( $field );
+		self::transform_image_fields( $field );
+
+		return $field['value'];
 	}
 
 	/**
 	 * Do the image size transform.
-
+	 *
 	 * @param string $field			Field
+	 * @return array
+	 */
+	public static function transform_image_fields( &$field ) {
+		$field['value'] = self::get_image_fields( $field, $field['value'] );
+	}
+
+	/**
+	 * Get image fields.
+	 *
+	 * @param string $field			Field
+	 * @param int	 $attachment_id	The image id.
 	 * @param bool   $sub_field		Sub field (only if it's a repeater)
 	 * @return array
 	 */
-	private static function transform_image_fields( $field, $sub_field = false ) {
+	public static function get_image_fields( $field, $attachment_id, $sub_field = false ) {
 		$size = apply_filters( 'ln_acf_image_size', false, $field, $sub_field );
 
 		if ( ! $size ) {
-			return $field['value'];
+			return $attachment_id;
 		}
 
-		$src = wp_get_attachment_image_src( $field['value'], $size );
+		$src = wp_get_attachment_image_src( $attachment_id, $size );
 
 		if ( ! $src ) {
-			return $field['value'];
+			return $attachment_id;
 		}
 
 		return [
 			'src' 		=> $src[0],
 			'width'		=> $src[1],
 			'height'	=> $src[2],
-			'alt'		=> get_post_meta( $field['value'], '_wp_attachment_image_alt', true ),
+			'alt'		=> get_post_meta( $attachment_id, '_wp_attachment_image_alt', true ),
 		];
 	}
 }

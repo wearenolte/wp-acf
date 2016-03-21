@@ -20,7 +20,9 @@ class PostObject
 			return $field['value'];
 		}
 
-		return self::transform_sub_post_fields( $field );
+		self::transform_sub_post_fields( $field );
+
+		return $field['value'];
 	}
 
 	/**
@@ -29,15 +31,15 @@ class PostObject
 	 * @param array $field The field.
 	 * @return array
 	 */
-	public static function transform_sub_post_fields( $field ) {
+	public static function transform_sub_post_fields( &$field ) {
 		if ( is_array( $field['value'] ) ) {
 			$data = [];
 			foreach ( $field['value'] as $post_id ) {
 				$data[] = All::get_post_fields( $post_id );
 			}
-			return $data;
+			$field['value'] = $data;
 		} else {
-			return All::get_post_fields( $field['value'] );
+			$field['value'] = All::get_post_fields( $field['value'] );
 		}
 	}
 }
