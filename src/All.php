@@ -51,8 +51,14 @@ class All
 
 					$parent = get_post( $field['parent'] );
 
-					$data[ $parent->post_excerpt ][ $field_name ] =
-						apply_filters( 'ln_acf_field', $value, $target, $field );
+					if ( $parent ) {
+						$data[ $parent->post_excerpt ][ $field_name ] =
+							apply_filters( 'ln_acf_field', $value, $target, $field );
+					} else {
+						$data[ $field_name ] =
+							apply_filters( 'ln_acf_field', $value, $target, $field );
+					}
+					
 				}
 			}
 		}
@@ -131,7 +137,7 @@ class All
 	/**
 	 * Get the fields for a widget.
 	 *
-	 * @param int $widget_id The target widget's id.
+	 * @param string $widget_id The target widget's id.
 	 * @return mixed
 	 */
 	public static function get_widget_fields( $widget_id ) {
@@ -139,7 +145,7 @@ class All
 	}
 
 	/**
-	 * Get the fields for an option.
+	 * Get option fields.
 	 *
 	 * @return mixed
 	 */
