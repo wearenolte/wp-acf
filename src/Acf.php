@@ -1,9 +1,9 @@
-<?php namespace Leean;
+<?php namespace Leean\Acf;
 
 /**
- * Class to provide helpers for working with the ACF plugin.
+ * Class to provide helpers for getting a single ACF field.
  */
-class Acf {
+class Single {
 	/**
 	 * Is the ACF plugin active.
 	 * @return bool

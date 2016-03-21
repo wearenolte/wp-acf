@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Leean\\": "src/"
+      "Leean\\Acf\\": "src/"
     }
   },
   "require-dev": {
