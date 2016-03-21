@@ -23,20 +23,22 @@ class All
 	private static function get_fields( $target = 0 ) {
 		$data = [];
 
-		$fields = get_field_objects( $target );
+		if ( self::is_active() ) {
+			$fields = get_field_objects( $target );
 
-		if ( ! $fields ) {
-			return $data;
-		}
+			if ( $fields ) {
+				foreach ( $fields as $field_name => $field ) {
+					$parent = get_post( $field['parent'] );
 
-		foreach ( $fields as $field_name => $field ) {
-			$data[ $field_name ] =
-				apply_filters(
-					'ln_acf_field',
-					$field['value'],
-					$target,
-					$field
-				);
+					$data[ $parent->post_excerpt ][ $field_name ] =
+						apply_filters(
+							'ln_acf_field',
+							$field['value'],
+							$target,
+							$field
+						);
+				}
+			}
 		}
 
 		return $data;
@@ -48,7 +50,7 @@ class All
 	 * @param int $post_id The target post's id. Or leave blank for he current post if in the loop.
 	 * @return array
 	 */
-	public static function get_post_field( $post_id = 0 ) {
+	public static function get_post_fields( $post_id = 0 ) {
 		return self::get_fields( $post_id );
 	}
 
@@ -58,7 +60,7 @@ class All
 	 * @param int|\WP_Comment $comment The target comment's id or object.
 	 * @return mixed
 	 */
-	public static function get_comment_field( $comment ) {
+	public static function get_comment_fields( $comment ) {
 		return self::get_fields( is_a( $comment, 'WP_Comment' ) ? $comment : "comment_{$comment}" );
 	}
 
