@@ -14,6 +14,16 @@ class All
 		return function_exists( 'get_field_object' );
 	}
 
+	private static function apply_default_transform( $field ) {
+		$class = '\\' . __NAMESPACE__ . '\\Transforms\\' . str_replace( '_', '', ucwords( $field['type'], '_' ) );
+
+		if ( method_exists( $class, 'apply' ) ) {
+			return call_user_func( [ $class, 'apply' ], $field );
+		}
+
+		return $field['value'];
+	}
+
 	/**
 	 * Get all field values.
 	 *
@@ -28,15 +38,15 @@ class All
 
 			if ( $fields ) {
 				foreach ( $fields as $field_name => $field ) {
+					$apply_default_transforms =
+						apply_filters( 'ln_acf_apply_default_transforms', true, $target, $field );
+
+					$value = $apply_default_transforms ? self::apply_default_transform( $field ) : $field['value'];
+
 					$parent = get_post( $field['parent'] );
 
 					$data[ $parent->post_excerpt ][ $field_name ] =
-						apply_filters(
-							'ln_acf_field',
-							$field['value'],
-							$target,
-							$field
-						);
+						apply_filters( 'ln_acf_field', $value, $target, $field );
 				}
 			}
 		}
@@ -48,9 +58,21 @@ class All
 	 * Get the field value for a post.
 	 *
 	 * @param int $post_id The target post's id. Or leave blank for he current post if in the loop.
+	 * @param bool $include_wp_fields Whether or not to include the default WP fields.
 	 * @return array
 	 */
-	public static function get_post_fields( $post_id = 0 ) {
+	public static function get_post_fields( $post_id = 0, $include_wp_fields = true ) {
+		if ( $include_wp_fields ) {
+			$wp_fields = [
+				'post_id' => $post_id,
+				'permalink' => get_permalink( $post_id ),
+				'title' => get_the_title( $post_id ),
+				'content' => apply_filters( 'the_content', get_post_field( 'post_content', $post_id ) ),
+			];
+
+			return array_merge( $wp_fields, self::get_fields( $post_id ) );
+		}
+
 		return self::get_fields( $post_id );
 	}
 
