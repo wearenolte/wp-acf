@@ -33,7 +33,7 @@
     "post-install-cmd": [ "@installSnifferj" ],
     "post-update-cmd": [ "@installSniffer" ],
     "ci": [
-      "phpcs src/*.php"
+      "phpcs src/*.php src/**/*.php"
     ]
   }
 }

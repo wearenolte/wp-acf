@@ -14,6 +14,12 @@ class All
 		return function_exists( 'get_field_object' );
 	}
 
+	/**
+	 * Apply the default transforms if any exist for this field type.
+	 *
+	 * @param array $field The field.
+	 * @return mixed
+	 */
 	private static function apply_default_transform( $field ) {
 		$class = '\\' . __NAMESPACE__ . '\\Transforms\\' . str_replace( '_', '', ucwords( $field['type'], '_' ) );
 
