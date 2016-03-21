@@ -14,13 +14,11 @@ class Repeater
 	 * @return array
 	 */
 	public static function apply( $field ) {
-		if ( ! ( 'repeater' === $field['type'] && is_array( $field['value'] ) ) ) {
-			return $field['value'];
+		if ( 'repeater' === $field['type'] && is_array( $field['value'] ) ) {
+			self::transform_image_fields( $field );
+
+			self::transform_to_object( $field );
 		}
-
-		 self::transform_image_fields( $field );
-
-		 self::transform_to_object( $field );
 
 		return $field['value'];
 	}

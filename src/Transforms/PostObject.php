@@ -16,11 +16,9 @@ class PostObject
 	 * @return array
 	 */
 	public static function apply( $field ) {
-		if ( ! ( 'post_object' === $field['type'] && 'id' === $field['return_format'] ) ) {
-			return $field['value'];
+		if ( 'post_object' === $field['type'] && 'id' === $field['return_format'] ) {
+			self::transform_sub_post_fields( $field );
 		}
-
-		self::transform_sub_post_fields( $field );
 
 		return $field['value'];
 	}

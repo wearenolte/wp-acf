@@ -58,7 +58,6 @@ class All
 						$data[ $field_name ] =
 							apply_filters( 'ln_acf_field', $value, $target, $field );
 					}
-					
 				}
 			}
 		}

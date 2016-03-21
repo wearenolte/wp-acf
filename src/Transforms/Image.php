@@ -14,11 +14,9 @@ class Image
 	 * @return array
 	 */
 	public static function apply( $field ) {
-		if ( ! ( 'image' === $field['type'] && 'id' === $field['return_format']) ) {
-			return $field['value'];
+		if ( 'image' === $field['type'] && 'id' === $field['return_format'] ) {
+			self::transform_image_fields( $field );
 		}
-
-		self::transform_image_fields( $field );
 
 		return $field['value'];
 	}
