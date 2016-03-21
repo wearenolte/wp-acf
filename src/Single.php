@@ -3,9 +3,11 @@
 /**
  * Class to provide helpers for getting a single ACF field.
  */
-class Single {
+class Single
+{
 	/**
 	 * Is the ACF plugin active.
+	 *
 	 * @return bool
 	 */
 	public static function is_active() {
@@ -15,8 +17,9 @@ class Single {
 	/**
 	 * Get the field value.
 	 * If it's a repeater return [] instead of false if empty.
-	 * @param string $field  Field key or name.
-	 * @param int    $target The target object.
+	 *
+	 * @param string $field Field key or name.
+	 * @param int $target The target object.
 	 * @return mixed
 	 */
 	private static function get_field( $field, $target = 0 ) {
@@ -36,8 +39,9 @@ class Single {
 
 	/**
 	 * Get the field value for a post.
-	 * @param string $field   Field key or name.
-	 * @param int    $post_id The target post's id. Or leave blank for he current post if in the loop.
+	 *
+	 * @param string $field Field key or name.
+	 * @param int $post_id The target post's id. Or leave blank for he current post if in the loop.
 	 * @return mixed
 	 */
 	public static function get_post_field( $field, $post_id = 0 ) {
@@ -46,7 +50,8 @@ class Single {
 
 	/**
 	 * Get the field value for a comment.
-	 * @param string 		  $field   Field key or name.
+	 *
+	 * @param string $field Field key or name.
 	 * @param int|\WP_Comment $comment The target comment's id or object.
 	 * @return mixed
 	 */
@@ -56,8 +61,9 @@ class Single {
 
 	/**
 	 * Get the field value for an attachment.
-	 * @param string $field   		Field key or name.
-	 * @param int    $attachment_id The target attachment's id.
+	 *
+	 * @param string $field Field key or name.
+	 * @param int $attachment_id The target attachment's id.
 	 * @return mixed
 	 */
 	public static function get_attachment_field( $field, $attachment_id ) {
@@ -66,7 +72,8 @@ class Single {
 
 	/**
 	 * Get the field value for a taxonomy term.
-	 * @param string 	     $field   	    Field key or name.
+	 *
+	 * @param string $field Field key or name.
 	 * @param array|\WP_Term $taxonomy_term The target term's [taxonomy, $term_id] or term object.
 	 * @return mixed
 	 * @throws \Exception
@@ -82,8 +89,9 @@ class Single {
 
 	/**
 	 * Get the field value for a user.
-	 * @param string $field   Field key or name.
-	 * @param int    $user_id The target user's id.
+	 *
+	 * @param string $field Field key or name.
+	 * @param int $user_id The target user's id.
 	 * @return mixed
 	 */
 	public static function get_user_field( $field, $user_id ) {
@@ -92,8 +100,9 @@ class Single {
 
 	/**
 	 * Get the field value for a widget.
-	 * @param string $field     Field key or name.
-	 * @param int    $widget_id The target widget's id.
+	 *
+	 * @param string $field Field key or name.
+	 * @param int $widget_id The target widget's id.
 	 * @return mixed
 	 */
 	public static function get_widget_field( $field, $widget_id ) {
@@ -102,7 +111,8 @@ class Single {
 
 	/**
 	 * Get the field value for an option.
-	 * @param string $field   Field key or name.
+	 *
+	 * @param string $field Field key or name.
 	 * @return mixed
 	 */
 	public static function get_option_field( $field ) {
