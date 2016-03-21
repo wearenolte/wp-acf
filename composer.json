@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Leean\\Acf\\": "src/"
+      "Leean\\": "src/"
     }
   },
   "require-dev": {
@@ -33,7 +33,7 @@
     "post-install-cmd": [ "@installSnifferj" ],
     "post-update-cmd": [ "@installSniffer" ],
     "ci": [
-      "phpcs src/*.php src/**/*.php"
+      "phpcs src/*.php src/**/**/*.php"
     ]
   }
 }

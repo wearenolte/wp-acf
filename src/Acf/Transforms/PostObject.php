@@ -1,6 +1,6 @@
 <?php namespace Leean\Acf\Transforms;
 
-use Leean\Acf\All;
+use Leean\Acf;
 
 /**
  * Class PostObject.
@@ -33,11 +33,11 @@ class PostObject
 		if ( is_array( $field['value'] ) ) {
 			$data = [];
 			foreach ( $field['value'] as $post_id ) {
-				$data[] = All::get_post_fields( $post_id );
+				$data[] = Acf::get_post_field( $post_id );
 			}
 			$field['value'] = $data;
 		} else {
-			$field['value'] = All::get_post_fields( $field['value'] );
+			$field['value'] = Acf::get_post_field( $field['value'] );
 		}
 	}
 }
