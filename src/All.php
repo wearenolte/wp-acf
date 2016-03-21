@@ -15,13 +15,23 @@ class All
 	}
 
 	/**
+	 * Return the class name for the transforms of this field type.
+	 *
+	 * @param string $field_type The ACF type of the field.
+	 * @return string
+	 */
+	private static function get_transform_class_name( $field_type ) {
+		return '\\' . __NAMESPACE__ . '\\Transforms\\' . str_replace( '_', '', ucwords( $field_type, '_' ) );
+	}
+
+	/**
 	 * Apply the default transforms if any exist for this field type.
 	 *
 	 * @param array $field The field.
 	 * @return mixed
 	 */
 	private static function apply_default_transform( $field ) {
-		$class = '\\' . __NAMESPACE__ . '\\Transforms\\' . str_replace( '_', '', ucwords( $field['type'], '_' ) );
+		$class = self::get_transform_class_name( $field['type'] );
 
 		if ( method_exists( $class, 'apply' ) ) {
 			return call_user_func( [ $class, 'apply' ], $field );
