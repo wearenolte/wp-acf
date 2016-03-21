@@ -43,19 +43,19 @@ class All
 	/**
 	 * Get all field values.
 	 *
-	 * @param int $target The target object.
+	 * @param int $target_id The target object's id.
 	 * @return array
 	 */
-	private static function get_fields( $target = 0 ) {
+	private static function get_fields( $target_id = 0 ) {
 		$data = [];
 
 		if ( self::is_active() ) {
-			$fields = get_field_objects( $target );
+			$fields = get_field_objects( $target_id );
 
 			if ( $fields ) {
 				foreach ( $fields as $field_name => $field ) {
 					$apply_default_transforms =
-						apply_filters( 'ln_acf_apply_default_transforms', true, $target, $field );
+						apply_filters( 'ln_acf_apply_default_transforms', true, $target_id, $field );
 
 					$value = $apply_default_transforms ? self::apply_default_transform( $field ) : $field['value'];
 
@@ -63,10 +63,10 @@ class All
 
 					if ( $parent ) {
 						$data[ $parent->post_excerpt ][ $field_name ] =
-							apply_filters( 'ln_acf_field', $value, $target, $field );
+							apply_filters( 'ln_acf_field', $value, $target_id, $field );
 					} else {
 						$data[ $field_name ] =
-							apply_filters( 'ln_acf_field', $value, $target, $field );
+							apply_filters( 'ln_acf_field', $value, $target_id, $field );
 					}
 				}
 			}
