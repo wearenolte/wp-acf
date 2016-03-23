@@ -55,7 +55,8 @@ class Repeater
 			return $field['value'];
 		}
 
-		$as_array = apply_filters( 'ln_acf_repeater_as_array', true, $field );
+		$as_array = ! ( 1 === $field['min'] && 1 === $field['max'] );
+		$as_array = apply_filters( 'ln_acf_repeater_as_array', $as_array, $field );
 
 		$field['value'] = $as_array ? $field['value'] : $field['value'][0];
 	}
