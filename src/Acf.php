@@ -134,10 +134,10 @@ class Acf {
 			foreach ( $field_objs as $field_name => $field_obj ) {
 				$value = self::get_single_field( $target_id, $field_obj );
 
-				$parent = get_post( $field_obj['parent'] );
+				$group = self::get_group( $field_obj['parent'] );
 
-				if ( $parent ) {
-					$data[ $parent->post_excerpt ][ $field_name ] = $value;
+				if ( $group ) {
+					$data[ $group->post_excerpt ][ $field_name ] = $value;
 				} else {
 					$data[ $field_name ] = $value;
 				}
@@ -185,5 +185,20 @@ class Acf {
 	 */
 	private static function get_transform_class_name( $field_type ) {
 		return '\\' . __NAMESPACE__ . '\\Acf\\Transforms\\' . str_replace( '_', '', ucwords( $field_type, '_' ) );
+	}
+
+	/**
+	 * Get an ACF group
+	 *
+	 * @param $group_id
+	 * @return bool
+	 */
+	private static function get_group( $group_id ) {
+		$groups = get_posts( [
+			'name'	=> $group_id,
+			'post_type' => 'acf-field-group'
+		]);
+
+		return count( $groups ) > 0 ? $groups[0] : false;
 	}
 }
