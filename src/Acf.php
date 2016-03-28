@@ -1,10 +1,11 @@
 <?php namespace Leean;
 
+use Leean\Acf\Filter;
+
 /**
  * Class to provide helpers for getting the ACF fields for an entity.
  */
-class Acf
-{
+class Acf {
 	/**
 	 * Is the ACF plugin active.
 	 *
@@ -30,10 +31,8 @@ class Acf
 				'title' => get_the_title( $post_id ),
 				'content' => apply_filters( 'the_content', get_post_field( 'post_content', $post_id ) ),
 			];
-
 			return array_merge( $wp_fields, self::get_field( $post_id ) );
 		}
-
 		return self::get_field( $post_id, $field );
 	}
 
@@ -108,11 +107,6 @@ class Acf
 		return self::get_field( 'option', $field );
 	}
 
-
-
-
-
-
 	/**
 	 * Get all field values.
 	 *
@@ -128,7 +122,6 @@ class Acf
 				return self::get_all_fields( $target_id );
 			}
 		}
-
 		return $field ? null : [];
 	}
 
@@ -157,11 +150,13 @@ class Acf
 	private static function get_single_field( $target_id = 0, $field = '' ) {
 		$field_obj = is_array( $field ) ? $field :  get_field_object( $field, $target_id );
 
-		$apply_default_transforms =
-			apply_filters( 'ln_acf_apply_default_transforms', true, $target_id, $field_obj );
+		$field_key = isset( $field_obj['key'] ) ? $field_obj['key'] : '';
+		$filter_name = Filter::create_name( Filter::DEFAULT_TRANSFORMS, $field_key );
+		$apply_default_transforms = apply_filters( $field_name, $target_id, $field_obj );
 
 		$value = $apply_default_transforms ? self::apply_default_transform( $field_obj ) : $field_obj['value'];
 
+		$filter_name = Filter::create_name( Filter::FIELD, $field_key );
 		return apply_filters( 'ln_acf_field', $value, $target_id, $field_obj );
 	}
 
