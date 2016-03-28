@@ -125,7 +125,13 @@ class Acf {
 		return $field ? null : [];
 	}
 
-	private static function get_all_fields( $target_id = 0, $field = '' ) {
+	/**
+	 * Get all the fields for the target object.
+	 *
+	 * @param int $target_id	The id of the target object.
+	 * @return array
+	 */
+	private static function get_all_fields( $target_id = 0 ) {
 		$data = [];
 
 		$field_objs = get_field_objects( $target_id );
@@ -147,6 +153,13 @@ class Acf {
 		return $data;
 	}
 
+	/**
+	 * Gat a single field value for a target object.
+	 *
+	 * @param int $target_id The id of the target object.
+	 * @param string $field  The field id or name.
+	 * @return mixed
+	 */
 	private static function get_single_field( $target_id = 0, $field = '' ) {
 		$field_obj = is_array( $field ) ? $field :  get_field_object( $field, $target_id );
 
@@ -164,7 +177,7 @@ class Acf {
 	/**
 	 * Apply the default transforms if any exist for this field type.
 	 *
-	 * @param array $field The field.
+	 * @param array $field_obj The field object.
 	 * @return mixed
 	 */
 	private static function apply_default_transform( $field_obj ) {
@@ -196,7 +209,8 @@ class Acf {
 	private static function get_group( $group_id ) {
 		$groups = get_posts( [
 			'name'	=> $group_id,
-			'post_type' => 'acf-field-group'
+			'post_type' => 'acf-field-group',
+			'suppress_filters' => false,
 		]);
 
 		return count( $groups ) > 0 ? $groups[0] : false;
