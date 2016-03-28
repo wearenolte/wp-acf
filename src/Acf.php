@@ -152,7 +152,7 @@ class Acf {
 
 		$field_key = isset( $field_obj['key'] ) ? $field_obj['key'] : '';
 		$filter_name = Filter::create_name( Filter::DEFAULT_TRANSFORMS, $field_key );
-		$apply_default_transforms = apply_filters( $field_name, $target_id, $field_obj );
+		$apply_default_transforms = apply_filters( $filter_name, $target_id, $field_obj );
 
 		$value = $apply_default_transforms ? self::apply_default_transform( $field_obj ) : $field_obj['value'];
 
