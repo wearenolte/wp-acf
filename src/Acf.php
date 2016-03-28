@@ -207,11 +207,14 @@ class Acf {
 	 * @return bool
 	 */
 	private static function get_group( $group_id ) {
+		// @codingStandardsIgnoreStart
+		// Ignore use WP_Query rule because we don't know if this will be a sub-query and hence create complications.
 		$groups = get_posts( [
 			'name'	=> $group_id,
 			'post_type' => 'acf-field-group',
 			'suppress_filters' => false,
 		]);
+		// @codingStandardsIgnoreEnd
 
 		return count( $groups ) > 0 ? $groups[0] : false;
 	}
