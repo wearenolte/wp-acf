@@ -151,13 +151,14 @@ class Acf {
 		$field_obj = is_array( $field ) ? $field :  get_field_object( $field, $target_id );
 
 		$field_key = isset( $field_obj['key'] ) ? $field_obj['key'] : '';
+
 		$filter_name = Filter::create_name( Filter::DEFAULT_TRANSFORMS, $field_key );
 		$apply_default_transforms = apply_filters( $filter_name, $target_id, $field_obj );
 
 		$value = $apply_default_transforms ? self::apply_default_transform( $field_obj ) : $field_obj['value'];
 
 		$filter_name = Filter::create_name( Filter::FIELD, $field_key );
-		return apply_filters( 'ln_acf_field', $value, $target_id, $field_obj );
+		return apply_filters( $filter_name, $value, $target_id, $field_obj );
 	}
 
 	/**
