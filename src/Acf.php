@@ -125,7 +125,13 @@ class Acf {
 		return $field ? null : [];
 	}
 
-	private static function get_all_fields( $target_id = 0, $field = '' ) {
+	/**
+	 * Get all the fields for the target object.
+	 *
+	 * @param int $target_id	The id of the target object.
+	 * @return array
+	 */
+	private static function get_all_fields( $target_id = 0 ) {
 		$data = [];
 
 		$field_objs = get_field_objects( $target_id );
@@ -134,10 +140,10 @@ class Acf {
 			foreach ( $field_objs as $field_name => $field_obj ) {
 				$value = self::get_single_field( $target_id, $field_obj );
 
-				$parent = get_post( $field_obj['parent'] );
+				$group = self::get_group( $field_obj['parent'] );
 
-				if ( $parent ) {
-					$data[ $parent->post_excerpt ][ $field_name ] = $value;
+				if ( $group ) {
+					$data[ $group->post_excerpt ][ $field_name ] = $value;
 				} else {
 					$data[ $field_name ] = $value;
 				}
@@ -147,23 +153,31 @@ class Acf {
 		return $data;
 	}
 
+	/**
+	 * Gat a single field value for a target object.
+	 *
+	 * @param int $target_id The id of the target object.
+	 * @param string $field  The field id or name.
+	 * @return mixed
+	 */
 	private static function get_single_field( $target_id = 0, $field = '' ) {
 		$field_obj = is_array( $field ) ? $field :  get_field_object( $field, $target_id );
 
 		$field_key = isset( $field_obj['key'] ) ? $field_obj['key'] : '';
+
 		$filter_name = Filter::create_name( Filter::DEFAULT_TRANSFORMS, $field_key );
-		$apply_default_transforms = apply_filters( $field_name, $target_id, $field_obj );
+		$apply_default_transforms = apply_filters( $filter_name, $target_id, $field_obj );
 
 		$value = $apply_default_transforms ? self::apply_default_transform( $field_obj ) : $field_obj['value'];
 
 		$filter_name = Filter::create_name( Filter::FIELD, $field_key );
-		return apply_filters( 'ln_acf_field', $value, $target_id, $field_obj );
+		return apply_filters( $filter_name, $value, $target_id, $field_obj );
 	}
 
 	/**
 	 * Apply the default transforms if any exist for this field type.
 	 *
-	 * @param array $field The field.
+	 * @param array $field_obj The field object.
 	 * @return mixed
 	 */
 	private static function apply_default_transform( $field_obj ) {
@@ -184,5 +198,24 @@ class Acf {
 	 */
 	private static function get_transform_class_name( $field_type ) {
 		return '\\' . __NAMESPACE__ . '\\Acf\\Transforms\\' . str_replace( '_', '', ucwords( $field_type, '_' ) );
+	}
+
+	/**
+	 * Get an ACF group
+	 *
+	 * @param $group_id
+	 * @return bool
+	 */
+	private static function get_group( $group_id ) {
+		// @codingStandardsIgnoreStart
+		// Ignore use WP_Query rule because we don't know if this will be a sub-query and hence create complications.
+		$groups = get_posts( [
+			'name'	=> $group_id,
+			'post_type' => 'acf-field-group',
+			'suppress_filters' => false,
+		]);
+		// @codingStandardsIgnoreEnd
+
+		return count( $groups ) > 0 ? $groups[0] : false;
 	}
 }
