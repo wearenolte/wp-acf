@@ -140,10 +140,10 @@ class Acf {
 			foreach ( $field_objs as $field_name => $field_obj ) {
 				$value = self::get_single_field( $target_id, $field_obj );
 
-				$group = self::get_group( $field_obj['parent'] );
+				$group_slug = self::get_group_slug( $field_obj['parent'] );
 
-				if ( $group ) {
-					$data[ $group->post_excerpt ][ $field_name ] = $value;
+				if ( $group_slug ) {
+					$data[ $group_slug ][ $field_name ] = $value;
 				} else {
 					$data[ $field_name ] = $value;
 				}
@@ -201,21 +201,35 @@ class Acf {
 	}
 
 	/**
-	 * Get an ACF group
+	 * Get an ACF group slug
 	 *
 	 * @param $group_id
-	 * @return bool
+	 * @return string|bool
 	 */
-	private static function get_group( $group_id ) {
-		// @codingStandardsIgnoreStart
-		// Ignore use WP_Query rule because we don't know if this will be a sub-query and hence create complications.
-		$groups = get_posts( [
-			'name'	=> $group_id,
-			'post_type' => 'acf-field-group',
-			'suppress_filters' => false,
-		]);
-		// @codingStandardsIgnoreEnd
+	private static function get_group_slug( $group_id ) {
+		global $acf_local;
 
-		return count( $groups ) > 0 ? $groups[0] : false;
+		if ( isset( $acf_local->groups[ $group_id ] ) ) {
+			// First try the local groups (added by PHP).
+			$title = $acf_local->groups[ $group_id ]['title'];
+
+		} else {
+			// Then try the db if not found in local.
+			// @codingStandardsIgnoreStart
+			// Ignore use WP_Query rule because we don't know if this will be a sub-query and hence create complications.
+			$groups = get_posts( [
+				'name'	=> $group_id,
+				'post_type' => 'acf-field-group',
+			]);
+			// @codingStandardsIgnoreEnd
+
+			$title = count( $groups ) > 0 ? $groups[0]->post_title : false;
+		}
+
+		if ( $title ) {
+			return strtolower( str_replace( ' ', '_', $title ) );
+		}
+
+		return false;
 	}
 }
