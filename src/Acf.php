@@ -223,7 +223,7 @@ class Acf {
 			]);
 			// @codingStandardsIgnoreEnd
 
-			$title = count( $groups ) > 0 ? $groups[0]->post_title : false;
+			$title = empty( $groups ) ? false : $groups[0]->post_title;
 		}
 
 		if ( $title ) {
