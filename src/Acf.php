@@ -197,7 +197,9 @@ class Acf {
 	 * @return string
 	 */
 	private static function get_transform_class_name( $field_type ) {
-		return '\\' . __NAMESPACE__ . '\\Acf\\Transforms\\' . str_replace( '_', '', ucwords( $field_type, '_' ) );
+		$short_name = implode( array_map( 'ucfirst', explode( '_', $field_type ) ) );
+
+		return '\\' . __NAMESPACE__ . '\\Acf\\Transforms\\' . $short_name;
 	}
 
 	/**
