@@ -1,12 +1,11 @@
-<?php namespace Leean\Acf\Transforms;
+<?php namespace Lean\Acf\Transforms;
 
 /**
  * Class Image.
  *
- * @package Leean\Acf\Transforms
+ * @package Lean\Acf\Transforms
  */
-class Image
-{
+class Image {
 	/**
 	 * Apply the transforms
 	 *

@@ -1,12 +1,11 @@
-<?php namespace Leean\Acf\Transforms;
+<?php namespace Lean\Acf\Transforms;
 
 /**
  * Class Repeater.
  *
- * @package Leean\Acf\Transforms
+ * @package Lean\Acf\Transforms
  */
-class Repeater
-{
+class Repeater {
 	/**
 	 * Apply the transforms
 	 *

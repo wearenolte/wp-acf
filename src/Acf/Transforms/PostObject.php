@@ -1,14 +1,13 @@
-<?php namespace Leean\Acf\Transforms;
+<?php namespace Lean\Acf\Transforms;
 
-use Leean\Acf;
+use Lean\Acf;
 
 /**
  * Class PostObject.
  *
- * @package Leean\Acf\Transforms
+ * @package Lean\Acf\Transforms
  */
-class PostObject
-{
+class PostObject {
 	/**
 	 * Apply the transforms
 	 *

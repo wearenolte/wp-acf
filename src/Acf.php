@@ -1,6 +1,6 @@
-<?php namespace Leean;
+<?php namespace Lean;
 
-use Leean\Acf\Filter;
+use Lean\Acf\Filter;
 
 /**
  * Class to provide helpers for getting the ACF fields for an entity.
