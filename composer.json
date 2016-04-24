@@ -1,5 +1,5 @@
 {
-  "name": "moxie-leean/wp-acf",
+  "name": "moxie-lean/wp-acf",
   "description": "Helper functions for working with Advanced Custom Fields",
   "keywords": ["wordpress", "acf"],
   "homepage": "https://github.com/moxie-leean/wp-acf",
@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Leean\\": "src/"
+      "Lean\\": "src/"
     }
   },
   "require-dev": {

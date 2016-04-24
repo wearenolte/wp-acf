@@ -1,4 +1,4 @@
-<?php namespace Leean\Acf;
+<?php namespace Lean\Acf;
 
 /**
  * Class that carries the filters and some util function aroudn this,
