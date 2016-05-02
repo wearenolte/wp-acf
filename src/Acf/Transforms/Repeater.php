@@ -1,5 +1,7 @@
 <?php namespace Lean\Acf\Transforms;
 
+use Lean\Acf\Filter;
+
 /**
  * Class Repeater.
  *
@@ -55,7 +57,7 @@ class Repeater {
 		}
 
 		$as_array = ! ( 1 === $field['min'] && 1 === $field['max'] );
-		$as_array = apply_filters( 'ln_acf_repeater_as_array', $as_array, $field );
+		$as_array = apply_filters( Filter::REPEATER_AS_ARRAY, $as_array, $field );
 
 		$field['value'] = $as_array ? $field['value'] : $field['value'][0];
 	}
