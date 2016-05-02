@@ -8,6 +8,7 @@
 class Filter {
 	const DEFAULT_TRANSFORMS = 'ln_acf_apply_default_transforms';
 	const FIELD = 'ln_acf_field';
+	const IMAGE = 'ln_acf_image_size';
 
 	public static function parse_suffix( $suffix = '' ) {
 		$suffix = strtolower( $suffix );
