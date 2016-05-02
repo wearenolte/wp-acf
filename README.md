@@ -47,7 +47,7 @@ The filter has the following parameters:
    belongs.
 2. `$field_obj`: array of data containing all field settings   
 
-## `ln_acf_field_{field_key}`.
+## `ln_acf_field_{field_key}`
 
 This filter allow you to overwrite the default value returned for a
 particular field. The `{field_key}` is replaced by the key of your field
@@ -75,4 +75,4 @@ on,
 3. `$sub_field`: This is always false for fields that are not repeter
    fields otherwise contains the fields that are childs.
 
-### `ln_acf_repeater_as_array`.
+### `ln_acf_repeater_as_array`
