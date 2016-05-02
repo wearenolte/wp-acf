@@ -1,5 +1,7 @@
 <?php namespace Lean\Acf\Transforms;
 
+use Lean\Acf\Filter;
+
 /**
  * Class Image.
  *
@@ -39,7 +41,7 @@ class Image {
 	 * @return array
 	 */
 	public static function get_image_fields( $field, $attachment_id, $sub_field = false ) {
-		$size = apply_filters( 'ln_acf_image_size', false, $field, $sub_field );
+		$size = apply_filters( Filter::IMAGE, false, $field, $sub_field );
 
 		if ( ! $size ) {
 			return $attachment_id;
