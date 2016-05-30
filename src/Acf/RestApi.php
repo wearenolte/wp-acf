@@ -13,7 +13,7 @@ class RestApi {
 	 * Initiate the ACF Rest API functionality.
 	 */
 	public static function init() {
-		add_action( 'rest_api_init', [ __CLASS__ , 'register' ] );
+		add_action( 'rest_api_init', [ __CLASS__, 'register' ] );
 	}
 
 	/**
@@ -24,7 +24,7 @@ class RestApi {
 			register_rest_field(
 				'post' === $type ? get_post_types() : $type ,
 				self::FIELD_NAME,
-				[ 'get_callback'    => [ __CLASS__, 'get_' . $type . '_fields' ] ]
+				[ 'get_callback' => [ __CLASS__, 'get_' . $type . '_fields' ] ]
 			);
 		}
 	}
