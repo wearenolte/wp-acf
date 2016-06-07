@@ -13,7 +13,7 @@ class RestApi {
 	 * Initiate the ACF Rest API functionality.
 	 */
 	public static function init() {
-		if ( function_exists('register_rest_field') ) {
+		if ( function_exists( 'register_rest_field' ) ) {
 			add_action( 'rest_api_init', [ __CLASS__, 'register' ] );
 		}
 	}
