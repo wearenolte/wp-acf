@@ -23,7 +23,7 @@ class RestApi {
 	 */
 	public static function register() {
 		foreach ( [ 'post', 'user' ] as $type ) {
-			register_rest_field(
+			\register_rest_field(
 				'post' === $type ? get_post_types() : $type ,
 				self::FIELD_NAME,
 				[ 'get_callback' => [ __CLASS__, 'get_' . $type . '_fields' ] ]
