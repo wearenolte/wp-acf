@@ -216,13 +216,16 @@ class Acf {
 			$title = $acf_local->groups[ $group_id ]['title'];
 
 		} else {
+			$args = [ 'post_type' => 'acf-field-group' ];
+			if ( is_numeric( $group_id ) ) {
+				$args['id'] = $group_id;
+			} else {
+				$args['name'] = $group_id;
+			}
 			// Then try the db if not found in local.
 			// @codingStandardsIgnoreStart
 			// Ignore use WP_Query rule because we don't know if this will be a sub-query and hence create complications.
-			$groups = get_posts( [
-				'name'	=> $group_id,
-				'post_type' => 'acf-field-group',
-			]);
+			$groups = get_posts( $args );
 			// @codingStandardsIgnoreEnd
 
 			$title = empty( $groups ) ? false : $groups[0]->post_title;
