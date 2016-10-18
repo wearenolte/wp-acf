@@ -230,12 +230,11 @@ class Acf {
 			// @codingStandardsIgnoreEnd
 			$title = empty( $groups ) ? false : $groups[0]->post_title;
 
-			// Patch for the new version of ACF Fields plugins >= 5.4.*
+			// Patch for the new version of ACF Fields plugins >= 5.4.*.
 			if ( ! $title ) {
 				$groups = acf_get_field_group( $group_id );
 				$title = empty( $groups ) ? false : $groups['title'];
 			}
-
 		}
 
 		if ( $title ) {
