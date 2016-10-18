@@ -222,13 +222,19 @@ class Acf {
 			} else {
 				$args['name'] = $group_id;
 			}
+
 			// Then try the db if not found in local.
 			// @codingStandardsIgnoreStart
 			// Ignore use WP_Query rule because we don't know if this will be a sub-query and hence create complications.
 			$groups = get_posts( $args );
 			// @codingStandardsIgnoreEnd
-
 			$title = empty( $groups ) ? false : $groups[0]->post_title;
+
+			// Patch for the new version of ACF Fields plugins >= 5.4.*.
+			if ( ! $title ) {
+				$groups = acf_get_field_group( $group_id );
+				$title = empty( $groups ) ? false : $groups['title'];
+			}
 		}
 
 		if ( $title ) {
