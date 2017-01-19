@@ -216,20 +216,22 @@ class Acf {
 			$title = $acf_local->groups[ $group_id ]['title'];
 
 		} else {
-			$args = [ 'post_type' => 'acf-field-group' ];
+			$args = [
+				'post_type' => 'acf-field-group',
+				'no_found_rows' => true,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+				'fields' => 'ids',
+			];
 			if ( is_numeric( $group_id ) ) {
 				$args['post__in'] = [ $group_id ];
 			} else {
 				$args['name'] = $group_id;
 			}
-			$args['no_found_rows'] = true;
-			$args['update_post_meta_cache'] = false;
-			$args['update_post_term_cache'] = false;
-			$args['fields'] = 'ids';
 
 			$groups = new \WP_Query( $args );
-			$acf_groups = empty( $groups->posts ) ? [] : $groups->posts;
-			$acf_id = (int) $acf_groups[0];
+			$acf_groups = is_array( $groups->posts ) ? $groups->posts : [];
+			$acf_id = empty( $acf_groups ) ? 0 : $acf_groups[0];
 			$title = get_the_title( $acf_id );
 
 			// Patch for the new version of ACF Fields plugins >= 5.4.*.
