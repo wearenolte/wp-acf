@@ -234,7 +234,6 @@ class Acf {
 				$title = empty( $group['title'] ) ? $group['title'] : '';
 			}
 
-
 			// Patch for the new version of ACF Fields plugins >= 5.4.*.
 			if ( ! $title ) {
 				$groups = acf_get_field_group( $group_id );
