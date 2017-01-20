@@ -216,6 +216,7 @@ class Acf {
 			$title = $acf_local->groups[ $group_id ]['title'];
 
 		} else {
+			$title = '';
 			if ( is_numeric( $group_id ) ) {
 				$args = [
 					'post_type' => 'acf-field-group',
