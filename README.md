@@ -4,7 +4,7 @@ Helper functions for working with the Advanced Custom Fields plugin.
 
 ## Requirements
 
-- PHP 5.4+ 
+- PHP 7.2+ or 8.0+
 - Composer 
 
 ## Getting Started
