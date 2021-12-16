@@ -26,10 +26,10 @@ class Acf {
 	public static function get_post_field( $post_id = 0, $include_wp_fields = true, $field = '' ) {
 		if ( $include_wp_fields && ! $field ) {
 			$wp_fields = [
-				'post_id' => $post_id,
+				'post_id'   => $post_id,
 				'permalink' => get_permalink( $post_id ),
-				'title' => get_the_title( $post_id ),
-				'content' => apply_filters( 'the_content', get_post_field( 'post_content', $post_id ) ),
+				'title'     => get_the_title( $post_id ),
+				'content'   => apply_filters( 'the_content', get_post_field( 'post_content', $post_id ) ),
 			];
 			return array_merge( $wp_fields, self::get_field( $post_id ) );
 		}
@@ -128,7 +128,7 @@ class Acf {
 	/**
 	 * Get all the fields for the target object.
 	 *
-	 * @param int $target_id	The id of the target object.
+	 * @param int $target_id The id of the target object.
 	 * @return array
 	 */
 	private static function get_all_fields( $target_id = 0 ) {
@@ -161,11 +161,11 @@ class Acf {
 	 * @return mixed
 	 */
 	private static function get_single_field( $target_id = 0, $field = '' ) {
-		$field_obj = is_array( $field ) ? $field :  get_field_object( $field, $target_id );
+		$field_obj = is_array( $field ) ? $field : get_field_object( $field, $target_id );
 
 		$field_key = isset( $field_obj['key'] ) ? $field_obj['key'] : '';
 
-		$filter_name = Filter::create_name( Filter::DEFAULT_TRANSFORMS, $field_key );
+		$filter_name              = Filter::create_name( Filter::DEFAULT_TRANSFORMS, $field_key );
 		$apply_default_transforms = apply_filters( $filter_name, $target_id, $field_obj );
 
 		$value = $apply_default_transforms ? self::apply_default_transform( $field_obj ) : $field_obj['value'];
@@ -218,18 +218,18 @@ class Acf {
 		} else {
 			$title = '';
 			if ( is_numeric( $group_id ) ) {
-				$args = [
-					'post_type' => 'acf-field-group',
-					'no_found_rows' => true,
+				$args       = [
+					'post_type'              => 'acf-field-group',
+					'no_found_rows'          => true,
 					'update_post_meta_cache' => false,
 					'update_post_term_cache' => false,
-					'fields' => 'ids',
-					'post__in' => [ $group_id ],
+					'fields'                 => 'ids',
+					'post__in'               => [ $group_id ],
 				];
-				$groups = new \WP_Query( $args );
+				$groups     = new \WP_Query( $args );
 				$acf_groups = is_array( $groups->posts ) ? $groups->posts : [];
-				$acf_id = empty( $acf_groups ) ? 0 : $acf_groups[0];
-				$title = get_the_title( $acf_id );
+				$acf_id     = empty( $acf_groups ) ? 0 : $acf_groups[0];
+				$title      = get_the_title( $acf_id );
 			} else {
 				$group = acf_get_local_field_group( $group_id );
 				$title = empty( $group['title'] ) ? $group['title'] : '';
@@ -238,7 +238,7 @@ class Acf {
 			// Patch for the new version of ACF Fields plugins >= 5.4.*.
 			if ( ! $title ) {
 				$groups = acf_get_field_group( $group_id );
-				$title = empty( $groups ) ? false : $groups['title'];
+				$title  = empty( $groups ) ? false : $groups['title'];
 			}
 		}
 

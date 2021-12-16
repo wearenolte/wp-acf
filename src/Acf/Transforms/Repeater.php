@@ -27,7 +27,7 @@ class Repeater {
 	/**
 	 * Do the image size transform for an image sub fields.
 	 *
-	 * @param string $field			Field.
+	 * @param string $field Field.
 	 * @return array
 	 */
 	public static function transform_image_fields( &$field ) {

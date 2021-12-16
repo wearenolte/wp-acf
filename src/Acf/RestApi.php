@@ -22,7 +22,7 @@ class RestApi {
 	public static function register() {
 		foreach ( [ 'post', 'user' ] as $type ) {
 			\register_rest_field(
-				'post' === $type ? get_post_types() : $type ,
+				'post' === $type ? get_post_types() : $type,
 				self::FIELD_NAME,
 				[ 'get_callback' => [ __CLASS__, 'get_' . $type . '_fields' ] ]
 			);
@@ -32,9 +32,9 @@ class RestApi {
 	/**
 	 * Get all ACF fields for the post.
 	 *
-	 * @param array 		   $object     The current object.
-	 * @param string 		   $field_name The field name.
-	 * @param \WP_REST_Request $request    The request.
+	 * @param array            $object The current object.
+	 * @param string           $field_name The field name.
+	 * @param \WP_REST_Request $request The request.
 	 * @return array
 	 */
 	public static function get_post_fields( $object, $field_name, $request ) {
@@ -44,9 +44,9 @@ class RestApi {
 	/**
 	 * Get all ACF fields for the user.
 	 *
-	 * @param array 		   $object     The current object.
-	 * @param string 		   $field_name The field name.
-	 * @param \WP_REST_Request $request    The request.
+	 * @param array            $object The current object.
+	 * @param string           $field_name The field name.
+	 * @param \WP_REST_Request $request The request.
 	 * @return array
 	 */
 	public static function get_user_fields( $object, $field_name, $request ) {
